@@ -1,0 +1,173 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-ink: #060809;
+  --color-ink-2: #0a0e11;
+  --color-panel: #0d1319;
+  --color-panel-2: #111a22;
+  --color-line: #1c2831;
+  --color-line-2: #2a3b48;
+
+  --color-accent: #34d399;
+  --color-accent-2: #10b981;
+  --color-wa: #25d366;
+  --color-gold: #fbbf24;
+  --color-rose: #fb7185;
+
+  --color-mute: #8ba3b5;
+  --color-faint: #54697a;
+
+  --animate-radar-sweep: radar-sweep 6s linear infinite;
+  --animate-blip: blip 2.4s ease-out infinite;
+  --animate-scan: scan 3.2s ease-in-out infinite;
+  --animate-fade-up: fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-pulse-soft: pulse-soft 2.6s ease-in-out infinite;
+
+  @keyframes radar-sweep {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes blip {
+    0% {
+      transform: scale(0.4);
+      opacity: 0.9;
+    }
+    100% {
+      transform: scale(2.6);
+      opacity: 0;
+    }
+  }
+  @keyframes scan {
+    0%,
+    100% {
+      transform: translateY(-6px);
+      opacity: 0;
+    }
+    50% {
+      transform: translateY(6px);
+      opacity: 1;
+    }
+  }
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes pulse-soft {
+    0%,
+    100% {
+      opacity: 0.55;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+}
+
+html,
+body {
+  background: var(--color-ink);
+  color: #e6f0f7;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(52, 211, 153, 0.3);
+  color: #ecfdf5;
+}
+
+/* ---------- scrollbar ---------- */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #22303c transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: #22303c;
+  border-radius: 99px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ---------- helpers ---------- */
+.font-display {
+  font-family: var(--font-display);
+}
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.glass {
+  background: linear-gradient(160deg, rgba(17, 26, 34, 0.85), rgba(10, 14, 17, 0.9));
+  border: 1px solid var(--color-line);
+  backdrop-filter: blur(14px);
+}
+
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(52, 211, 153, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(52, 211, 153, 0.045) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 20%, black 30%, transparent 100%);
+}
+
+.noise::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.text-glow-accent {
+  text-shadow: 0 0 22px rgba(52, 211, 153, 0.45);
+}
+.text-glow-gold {
+  text-shadow: 0 0 22px rgba(251, 191, 36, 0.4);
+}
+
+.chip {
+  @apply inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-semibold tracking-wide;
+}
+
+.input-dark {
+  @apply w-full rounded-xl border border-line bg-panel px-3.5 py-2.5 text-sm text-emerald-50 placeholder:text-faint outline-none transition-all duration-200;
+}
+.input-dark:focus {
+  border-color: rgba(52, 211, 153, 0.55);
+  box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.12);
+}
+
+.seg-btn {
+  @apply flex-1 rounded-lg px-2 py-1.5 text-[11.5px] font-semibold tracking-wide transition-all duration-200;
+}
+
+.sweep {
+  background: conic-gradient(
+    from 0deg,
+    rgba(52, 211, 153, 0.35),
+    rgba(52, 211, 153, 0.06) 70deg,
+    transparent 90deg
+  );
+  border-radius: 9999px;
+  mask-image: radial-gradient(circle, black 0%, black 68%, transparent 72%);
+}
